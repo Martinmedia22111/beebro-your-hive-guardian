@@ -55,7 +55,7 @@ function HeroVariantB() {
           </p>
           <div className="flex flex-wrap items-center gap-3 mb-8 text-primary-foreground/70 text-sm">
             <span className="flex items-center gap-1">✅ Реальная пасека</span>
-            <span className="flex items-center gap-1">✅ Личный кабинет</span>
+            <span className="flex items-center gap-1">✅ Обновления в Telegram</span>
             <span className="flex items-center gap-1">✅ Мёд и сертификат</span>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">

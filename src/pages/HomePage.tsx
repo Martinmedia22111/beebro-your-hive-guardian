@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useApp } from '@/context/AppContext';
+import { useApp, TELEGRAM_BOT_URL } from '@/context/AppContext';
 import FamilyCard from '@/components/FamilyCard';
 import HeroBlock from '@/components/home/HeroVariants';
-
 import { Eye, Heart, Gift, Shield, Leaf, Star, ChevronRight } from 'lucide-react';
 import apiaryTrust from '@/assets/apiary-trust.jpg';
 import giftBox from '@/assets/gift-box.jpg';
@@ -19,12 +17,11 @@ export default function HomePage() {
   const navigate = useNavigate();
   const { families } = useApp();
   const featured = families.slice(0, 6);
-  const [heroVariant] = useState<1 | 2 | 3>(2);
 
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <HeroBlock variant={heroVariant} />
+      <HeroBlock variant={2} />
 
       {/* How it works - 3 steps */}
       <section className="py-20 bg-cream-gradient">
@@ -35,8 +32,8 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
             {[
               { icon: '🐝', title: 'Выберите семью', desc: 'В каталоге — реальные семьи с пасеки в Минской области. У каждой свой характер, история и фото.' },
-              { icon: '📋', title: 'Оформите опеку', desc: 'Выберите тариф (от 79 BYN), оплатите — и семья закрепляется за вами на весь сезон.' },
-              { icon: '📱', title: 'Наблюдайте и получайте бонусы', desc: 'Личный кабинет, фото, видео, сезонный прогресс, сертификат и мёд от вашей семьи.' },
+              { icon: '📋', title: 'Оформите опеку', desc: 'Напишите нам в Telegram, выберите тариф (от 79 BYN) — и семья закрепляется за вами на весь сезон.' },
+              { icon: '📱', title: 'Наблюдайте и получайте бонусы', desc: 'Фото, видео, сезонный прогресс, именной сертификат и мёд от вашей семьи.' },
             ].map((step, i) => (
               <div key={i} className="text-center p-8 bg-card rounded-lg shadow-soft border border-border">
                 <div className="text-5xl mb-4">{step.icon}</div>
@@ -63,9 +60,9 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { icon: <Heart className="w-6 h-6" />, title: 'Это не покупка — это опыт', desc: 'Вы не просто платите деньги. Вы получаете свою семью, наблюдаете за ней весь сезон и чувствуете причастность к живому процессу.' },
-              { icon: <Eye className="w-6 h-6" />, title: 'Всё прозрачно', desc: 'Личный кабинет с фото, видео и обновлениями. Вы видите, что происходит с вашими пчёлами — каждые 1–2 недели.' },
+              { icon: <Eye className="w-6 h-6" />, title: 'Всё прозрачно', desc: 'Фото, видео и обновления прямо в Telegram. Вы видите, что происходит с вашими пчёлами — каждые 1–2 недели.' },
               { icon: <Gift className="w-6 h-6" />, title: 'Идеальный подарок', desc: 'Подарите не вещь, а живую историю. Красивый сертификат, поздравление и уникальный сезон наблюдений.' },
-              { icon: <Shield className="w-6 h-6" />, title: 'Продумано до мелочей', desc: 'Цифровой кабинет, сертификат, прогресс-бар сезона, уведомления — всё работает без лишних усилий с вашей стороны.' },
+              { icon: <Shield className="w-6 h-6" />, title: 'Продумано до мелочей', desc: 'Сертификат, прогресс сезона, уведомления в Telegram — всё работает без лишних усилий с вашей стороны.' },
               { icon: <Leaf className="w-6 h-6" />, title: 'Реальная польза', desc: 'Вы поддерживаете семейную пасеку и помогаете пчёлам. Это не маркетинг — это реальная экологическая инициатива.' },
               { icon: <Star className="w-6 h-6" />, title: 'Мест мало', desc: 'В сезоне участвует ограниченное число семей. Когда все заняты — новых не будет до следующего года.' },
             ].map((item, i) => (
@@ -116,7 +113,7 @@ export default function HomePage() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {[
-              { emoji: '📱', label: 'Личный кабинет', sub: 'Сразу после оплаты' },
+              { emoji: '📱', label: 'Telegram-канал', sub: 'Обновления онлайн' },
               { emoji: '📸', label: 'Фото и видео', sub: 'Каждые 1–2 недели' },
               { emoji: '📊', label: 'Прогресс сезона', sub: 'В реальном времени' },
               { emoji: '📜', label: 'Цифровой сертификат', sub: 'Именной, с печатью' },
@@ -172,8 +169,8 @@ export default function HomePage() {
               <div className="space-y-3 mb-6">
                 {[
                   { q: '«А вдруг это обман?»', a: 'Мы показываем реальные фото пасеки, координаты и контакты. Приезжайте — покажем вашу семью лично.' },
-                  { q: '«Что я реально получу?»', a: 'Личный кабинет, фото/видео обновления каждые 1–2 недели, именной сертификат, и мёд в расширенном тарифе.' },
-                  { q: '«Почему так дорого / дёшево?»', a: 'Цена покрывает обслуживание семьи, контент, кабинет и логистику. Это не покупка мёда — это сезонный опыт.' },
+                  { q: '«Что я реально получу?»', a: 'Фото/видео обновления каждые 1–2 недели в Telegram, именной сертификат, и мёд в расширенном тарифе.' },
+                  { q: '«Почему так дорого / дёшево?»', a: 'Цена покрывает обслуживание семьи, контент, обновления и логистику. Это не покупка мёда — это сезонный опыт.' },
                 ].map((item, i) => (
                   <div key={i} className="bg-card rounded-lg border border-border p-4">
                     <div className="text-sm font-semibold text-foreground mb-1">{item.q}</div>
@@ -182,7 +179,7 @@ export default function HomePage() {
                 ))}
               </div>
               <div className="flex flex-wrap gap-3">
-                {['🌿 Натурально', '🗓 Сезон 2025', '🔒 Осталось 4 места', '📱 Онлайн-кабинет', '💸 Возврат 14 дней'].map(badge => (
+                {['🌿 Натурально', '🗓 Сезон 2025', '🔒 Осталось 4 места', '📱 Telegram-обновления', '💸 Возврат 14 дней'].map(badge => (
                   <span key={badge} className="px-4 py-2 bg-honey-light text-honey-dark rounded-full text-sm font-medium">
                     {badge}
                   </span>
@@ -205,7 +202,7 @@ export default function HomePage() {
           <Accordion type="single" collapsible className="space-y-3">
             {[
               { q: 'Это покупка мёда?', a: 'Нет. BeeBro — это опека над реальной пчелиной семьёй на пасеке. Вы наблюдаете за ней весь сезон, получаете обновления и бонусы. Мёд — часть расширенного тарифа, но главное — это живой цифровой опыт.' },
-              { q: 'Что именно я получу после оплаты?', a: 'Мгновенный доступ в личный кабинет, именной сертификат опекуна, первое обновление по вашей семье. Далее — фото, видео и обновления каждые 1–2 недели в течение сезона.' },
+              { q: 'Что именно я получу после оплаты?', a: 'Именной сертификат опекуна и первое обновление по вашей семье. Далее — фото, видео и обновления каждые 1–2 недели прямо в Telegram.' },
               { q: 'А это реальные пчёлы?', a: 'Да. Пасека находится в Минской области. 40+ ульев, 8 лет опыта. Вы можете приехать и увидеть свою семью лично — мы это приветствуем.' },
               { q: 'Можно ли подарить?', a: 'Конечно! У нас есть подарочный формат с красивым сертификатом, персональным поздравлением и возможностью отложенной активации.' },
               { q: 'Что если все семьи заняты?', a: 'Количество семей ограничено сезоном. Если все заняты, оставьте заявку — мы уведомим вас первым, когда откроется новый сезон.' },

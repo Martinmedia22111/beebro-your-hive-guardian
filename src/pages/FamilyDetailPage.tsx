@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useApp } from '@/context/AppContext';
+import { useApp, TELEGRAM_BOT_URL } from '@/context/AppContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -13,7 +13,7 @@ const statusLabels: Record<string, string> = {
 export default function FamilyDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { families, setCartFamily, setGiftMode } = useApp();
+  const { families } = useApp();
   const family = families.find(f => f.id === id);
 
   if (!family) {
@@ -21,18 +21,6 @@ export default function FamilyDetailPage() {
   }
 
   const similar = families.filter(f => f.id !== family.id && f.status !== 'taken').slice(0, 3);
-
-  const handleAdopt = () => {
-    setCartFamily(family);
-    setGiftMode(false);
-    navigate('/checkout');
-  };
-
-  const handleGift = () => {
-    setCartFamily(family);
-    setGiftMode(true);
-    navigate('/checkout');
-  };
 
   const milestones = [
     { label: 'Старт сезона', pct: 0 },
@@ -64,8 +52,12 @@ export default function FamilyDetailPage() {
 
             {family.status !== 'taken' ? (
               <div className="flex gap-3">
-                <Button size="lg" onClick={handleAdopt}>Взять под опеку <ChevronRight className="w-5 h-5 ml-1" /></Button>
-                <Button size="lg" variant="outline" onClick={handleGift}>🎁 Подарить</Button>
+                <a href={TELEGRAM_BOT_URL} target="_blank" rel="noopener noreferrer">
+                  <Button size="lg">Взять под опеку <ChevronRight className="w-5 h-5 ml-1" /></Button>
+                </a>
+                <a href={TELEGRAM_BOT_URL} target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" variant="outline">🎁 Подарить</Button>
+                </a>
               </div>
             ) : (
               <div>
@@ -142,7 +134,9 @@ export default function FamilyDetailPage() {
             <h3 className="font-display text-xl font-semibold mb-2">Онлайн-трансляция</h3>
             <p className="text-muted-foreground mb-4">Доступно после оформления расширенной опеки</p>
             {family.status !== 'taken' && (
-              <Button onClick={handleAdopt}>Оформить опеку</Button>
+              <a href={TELEGRAM_BOT_URL} target="_blank" rel="noopener noreferrer">
+                <Button>Оформить опеку</Button>
+              </a>
             )}
           </div>
         </section>
@@ -153,8 +147,8 @@ export default function FamilyDetailPage() {
           <Accordion type="single" collapsible className="space-y-3">
             {[
               { q: 'Можно ли сменить семью?', a: 'Да, в течение 7 дней после оформления вы можете сменить семью на другую доступную.' },
-              { q: 'Когда откроется доступ?', a: 'Доступ в личный кабинет открывается сразу после подтверждения оплаты.' },
-              { q: 'Можно ли оформить на подарок?', a: 'Конечно! Нажмите кнопку «Подарить» и заполните данные получателя.' },
+              { q: 'Когда начнутся обновления?', a: 'Мы подключим вас к Telegram-боту сразу после подтверждения оплаты.' },
+              { q: 'Можно ли оформить на подарок?', a: 'Конечно! Напишите нам в Telegram и мы оформим подарочный формат.' },
             ].map((f, i) => (
               <AccordionItem key={i} value={`dfaq-${i}`} className="bg-card border border-border rounded-lg px-6">
                 <AccordionTrigger className="text-left font-medium">{f.q}</AccordionTrigger>
@@ -179,8 +173,12 @@ export default function FamilyDetailPage() {
           <section className="mt-16 text-center py-10 bg-honey-light rounded-2xl">
             <h2 className="font-display text-2xl font-bold mb-4">{family.name} ждёт вас</h2>
             <div className="flex gap-3 justify-center">
-              <Button size="lg" onClick={handleAdopt}>Взять под опеку</Button>
-              <Button size="lg" variant="outline" onClick={handleGift}>🎁 Подарить</Button>
+              <a href={TELEGRAM_BOT_URL} target="_blank" rel="noopener noreferrer">
+                <Button size="lg">Взять под опеку</Button>
+              </a>
+              <a href={TELEGRAM_BOT_URL} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline">🎁 Подарить</Button>
+              </a>
             </div>
           </section>
         )}

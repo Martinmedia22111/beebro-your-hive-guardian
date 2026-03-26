@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { BeeFamily } from '@/data/types';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useApp } from '@/context/AppContext';
+import { TELEGRAM_BOT_URL } from '@/context/AppContext';
 
 const statusLabels: Record<string, string> = {
   available: 'Доступна',
@@ -18,16 +18,6 @@ const statusColors: Record<string, string> = {
 
 export default function FamilyCard({ family }: { family: BeeFamily }) {
   const navigate = useNavigate();
-  const { setCartFamily } = useApp();
-
-  const handleAdopt = () => {
-    if (family.status === 'taken') {
-      navigate('/catalog?status=available');
-    } else {
-      setCartFamily(family);
-      navigate('/checkout');
-    }
-  };
 
   return (
     <div className="group bg-card rounded-lg overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 border border-border">
@@ -63,9 +53,15 @@ export default function FamilyCard({ family }: { family: BeeFamily }) {
             <Button variant="outline" size="sm" onClick={() => navigate(`/family/${family.id}`)}>
               Подробнее
             </Button>
-            <Button size="sm" onClick={handleAdopt}>
-              {family.status === 'taken' ? 'Выбрать другую' : 'Опекать'}
-            </Button>
+            {family.status !== 'taken' ? (
+              <a href={TELEGRAM_BOT_URL} target="_blank" rel="noopener noreferrer">
+                <Button size="sm">Опекать</Button>
+              </a>
+            ) : (
+              <Button size="sm" variant="secondary" onClick={() => navigate('/catalog?status=available')}>
+                Выбрать другую
+              </Button>
+            )}
           </div>
         </div>
       </div>
