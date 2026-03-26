@@ -34,8 +34,8 @@ export default function Footer() {
           <div>
             <h4 className="font-display font-semibold mb-3">Контакты</h4>
             <div className="flex flex-col gap-2 text-sm opacity-70">
-              <span>+375 29 123-45-67</span>
-              <span>hello@beebro.by</span>
+              <a href="tel:+375291234567" className="hover:opacity-100 transition-opacity">+375 29 123-45-67</a>
+              <a href="mailto:hello@beebro.by" className="hover:opacity-100 transition-opacity">hello@beebro.by</a>
               <span>Минская область, Беларусь</span>
             </div>
           </div>

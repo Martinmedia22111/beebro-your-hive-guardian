@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useApp } from '@/context/AppContext';
 import FamilyCard from '@/components/FamilyCard';
 import HeroBlock from '@/components/home/HeroVariants';
-import HeroSwitcher from '@/components/home/HeroSwitcher';
+
 import { Eye, Heart, Gift, Shield, Leaf, Star, ChevronRight } from 'lucide-react';
 import apiaryTrust from '@/assets/apiary-trust.jpg';
 import giftBox from '@/assets/gift-box.jpg';
@@ -19,13 +19,10 @@ export default function HomePage() {
   const navigate = useNavigate();
   const { families } = useApp();
   const featured = families.slice(0, 6);
-  const [heroVariant, setHeroVariant] = useState<1 | 2 | 3>(2);
+  const [heroVariant] = useState<1 | 2 | 3>(2);
 
   return (
     <div className="min-h-screen">
-      {/* Hero variant switcher (visible on desktop for comparison) */}
-      <HeroSwitcher current={heroVariant} onChange={setHeroVariant} />
-      
       {/* Hero */}
       <HeroBlock variant={heroVariant} />
 

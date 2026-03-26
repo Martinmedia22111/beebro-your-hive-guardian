@@ -192,7 +192,7 @@ export default function CheckoutPage() {
 
               <div className="flex items-center gap-2">
                 <Checkbox checked={agreed} onCheckedChange={(v) => setAgreed(v === true)} />
-                <span className="text-sm text-muted-foreground">Согласен с <a href="/terms" className="underline">офертой</a> и <a href="/privacy" className="underline">политикой конфиденциальности</a></span>
+                <span className="text-sm text-muted-foreground">Согласен с <a href="#/terms" target="_blank" rel="noopener noreferrer" className="underline">офертой</a> и <a href="#/privacy" target="_blank" rel="noopener noreferrer" className="underline">политикой конфиденциальности</a></span>
               </div>
             </div>
             <div className="flex justify-between">

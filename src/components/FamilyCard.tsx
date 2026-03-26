@@ -64,7 +64,7 @@ export default function FamilyCard({ family }: { family: BeeFamily }) {
               Подробнее
             </Button>
             <Button size="sm" onClick={handleAdopt}>
-              {family.status === 'taken' ? 'Другую' : 'Опекать'}
+              {family.status === 'taken' ? 'Выбрать другую' : 'Опекать'}
             </Button>
           </div>
         </div>

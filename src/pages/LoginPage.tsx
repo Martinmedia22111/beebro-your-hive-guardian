@@ -9,8 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 export default function LoginPage() {
   const navigate = useNavigate();
   const { login, register } = useApp();
-  const [loginEmail, setLoginEmail] = useState('alexey@example.com');
-  const [loginPass, setLoginPass] = useState('demo');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPass, setLoginPass] = useState('');
   const [regName, setRegName] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPhone, setRegPhone] = useState('');
@@ -49,7 +49,6 @@ export default function LoginPage() {
               <form onSubmit={handleLogin} className="space-y-4">
                 <div><Label>Email</Label><Input value={loginEmail} onChange={e => setLoginEmail(e.target.value)} placeholder="email@example.com" /></div>
                 <div><Label>Пароль</Label><Input type="password" value={loginPass} onChange={e => setLoginPass(e.target.value)} placeholder="Пароль" /></div>
-                <p className="text-xs text-muted-foreground">Демо: любой email и пароль</p>
                 <Button type="submit" className="w-full">Войти</Button>
               </form>
             </TabsContent>
