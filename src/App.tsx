@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -31,7 +31,7 @@ const App = () => (
       <AppProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <HashRouter>
           <Header />
           <main className="pt-0">
             <Routes>
@@ -54,7 +54,7 @@ const App = () => (
           </main>
           <Footer />
           <MobileCTA />
-        </BrowserRouter>
+        </HashRouter>
       </AppProvider>
     </TooltipProvider>
   </QueryClientProvider>
