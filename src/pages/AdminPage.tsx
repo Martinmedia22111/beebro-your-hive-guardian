@@ -1,26 +1,54 @@
 import { useState } from 'react';
 import { families as initialFamilies } from '@/data/families';
-import { BeeFamily, FamilyStatus } from '@/data/types';
+import { BeeFamily, FamilyStatus, SeasonUpdate } from '@/data/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { toast } from '@/hooks/use-toast';
 
 export default function AdminPage() {
   const [families, setFamilies] = useState(initialFamilies);
   const [editing, setEditing] = useState<string | null>(null);
+  const [updateFamily_, setUpdateFamily_] = useState('');
+  const [updateTitle, setUpdateTitle] = useState('');
+  const [updateDesc, setUpdateDesc] = useState('');
 
   const updateFamily = (id: string, updates: Partial<BeeFamily>) => {
     setFamilies(prev => prev.map(f => f.id === id ? { ...f, ...updates } : f));
     setEditing(null);
+    toast({ title: 'Сохранено', description: `Данные семьи обновлены` });
   };
 
-  const demoOrders = [
+  const [demoOrders, setDemoOrders] = useState([
     { id: 'order-001', family: 'Семья №08', user: 'Алексей', email: 'alexey@example.com', date: '2025-03-01', status: 'active', plan: 'Расширенная' },
     { id: 'order-002', family: 'Семья №17', user: 'Мария', email: 'maria@example.com', date: '2025-03-10', status: 'pending', plan: 'Базовая' },
-  ];
+  ]);
+
+  const confirmOrder = (orderId: string) => {
+    setDemoOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: 'active' } : o));
+    toast({ title: 'Заказ подтверждён', description: `Заказ ${orderId} теперь активен` });
+  };
+
+  const addUpdate = () => {
+    if (!updateFamily_ || !updateTitle) {
+      toast({ title: 'Заполните поля', description: 'Выберите семью и введите заголовок', variant: 'destructive' });
+      return;
+    }
+    const newUpdate: SeasonUpdate = {
+      date: new Date().toISOString().split('T')[0],
+      title: updateTitle,
+      description: updateDesc || 'Новое обновление',
+      type: 'milestone',
+    };
+    setFamilies(prev => prev.map(f => f.id === updateFamily_ ? { ...f, updates: [newUpdate, ...f.updates] } : f));
+    setUpdateTitle('');
+    setUpdateDesc('');
+    setUpdateFamily_('');
+    toast({ title: 'Обновление добавлено', description: `Обновление "${updateTitle}" опубликовано` });
+  };
 
   return (
     <div className="min-h-screen pt-24 pb-20">
@@ -95,29 +123,51 @@ export default function AdminPage() {
                     <p className="text-sm text-muted-foreground">{o.email} • {o.date} • {o.plan}</p>
                   </div>
                   <Badge variant={o.status === 'active' ? 'default' : 'secondary'}>{o.status}</Badge>
-                  <Button size="sm" variant="outline">Подтвердить</Button>
+                  {o.status === 'pending' ? (
+                    <Button size="sm" onClick={() => confirmOrder(o.id)}>Подтвердить</Button>
+                  ) : (
+                    <span className="text-xs text-muted-foreground">Активен</span>
+                  )}
                 </div>
               ))}
             </div>
           </TabsContent>
 
           <TabsContent value="updates" className="mt-6">
-            <div className="bg-card rounded-xl border border-border p-6 max-w-md">
+            <div className="bg-card rounded-xl border border-border p-6 max-w-md mb-8">
               <h3 className="font-display font-bold mb-4">Добавить обновление</h3>
               <div className="space-y-3">
                 <div>
                   <Label>Семья</Label>
-                  <Select>
+                  <Select value={updateFamily_} onValueChange={setUpdateFamily_}>
                     <SelectTrigger><SelectValue placeholder="Выберите семью" /></SelectTrigger>
                     <SelectContent>
                       {families.map(f => <SelectItem key={f.id} value={f.id}>{f.name}</SelectItem>)}
                     </SelectContent>
                   </Select>
                 </div>
-                <div><Label>Заголовок</Label><Input placeholder="Название обновления" /></div>
-                <div><Label>Описание</Label><Input placeholder="Что произошло" /></div>
-                <Button>Добавить обновление</Button>
+                <div><Label>Заголовок</Label><Input value={updateTitle} onChange={e => setUpdateTitle(e.target.value)} placeholder="Название обновления" /></div>
+                <div><Label>Описание</Label><Input value={updateDesc} onChange={e => setUpdateDesc(e.target.value)} placeholder="Что произошло" /></div>
+                <Button onClick={addUpdate}>Добавить обновление</Button>
               </div>
+            </div>
+
+            {/* Show recent updates */}
+            <div className="space-y-3">
+              <h3 className="font-display font-semibold text-lg">Последние обновления</h3>
+              {families.flatMap(f => f.updates.map(u => ({ ...u, familyName: f.name }))).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 10).map((u, i) => (
+                <div key={i} className="flex gap-3 items-start p-3 bg-card rounded-lg border border-border">
+                  <div className="text-xl">{u.type === 'milestone' ? '🏆' : u.type === 'photo' ? '📸' : '🎬'}</div>
+                  <div className="flex-1">
+                    <div className="font-semibold text-sm">{u.title}</div>
+                    <p className="text-xs text-muted-foreground">{u.description}</p>
+                  </div>
+                  <div className="text-right">
+                    <Badge variant="secondary" className="text-xs">{u.familyName}</Badge>
+                    <div className="text-xs text-muted-foreground mt-1">{u.date}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </TabsContent>
         </Tabs>
