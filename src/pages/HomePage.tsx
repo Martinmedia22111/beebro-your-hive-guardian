@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useApp } from '@/context/AppContext';
 import FamilyCard from '@/components/FamilyCard';
+import HeroBlock from '@/components/home/HeroVariants';
+import HeroSwitcher from '@/components/home/HeroSwitcher';
 import { Eye, Heart, Gift, Shield, Leaf, Star, ChevronRight } from 'lucide-react';
-import heroBg from '@/assets/hero-bg.jpg';
 import apiaryTrust from '@/assets/apiary-trust.jpg';
 import giftBox from '@/assets/gift-box.jpg';
 import {
@@ -17,32 +19,15 @@ export default function HomePage() {
   const navigate = useNavigate();
   const { families } = useApp();
   const featured = families.slice(0, 6);
+  const [heroVariant, setHeroVariant] = useState<1 | 2 | 3>(2);
 
   return (
     <div className="min-h-screen">
+      {/* Hero variant switcher (visible on desktop for comparison) */}
+      <HeroSwitcher current={heroVariant} onChange={setHeroVariant} />
+      
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <img src={heroBg} alt="Пасека BeeBro" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
-        <div className="absolute inset-0 bg-gradient-to-b from-foreground/50 via-foreground/30 to-background" />
-        <div className="relative z-10 container text-center text-primary-foreground py-20">
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up">
-            Возьми пчелиную семью
-            <br />
-            <span className="text-gradient-honey">под опеку</span>
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 opacity-90">
-            Выбирай семью, наблюдай за жизнью улья в течение сезона, получай обновления, эмоции и бонусы. BeeBro — это живой цифровой опыт.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" onClick={() => navigate('/catalog')} className="text-base px-8">
-              Выбрать семью <ChevronRight className="w-5 h-5 ml-1" />
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => navigate('/how-it-works')} className="text-base px-8 bg-primary-foreground/10 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/20">
-              Как это работает
-            </Button>
-          </div>
-        </div>
-      </section>
+      <HeroBlock variant={heroVariant} />
 
       {/* How it works - 3 steps */}
       <section className="py-20 bg-cream-gradient">
@@ -52,9 +37,9 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
             {[
-              { icon: '🐝', title: 'Выберите семью', desc: 'Посмотрите доступных пчёл, узнайте их характер и историю' },
-              { icon: '📋', title: 'Оформите опеку', desc: 'Выберите тариф, оплатите участие — и семья станет вашей' },
-              { icon: '📱', title: 'Наблюдайте и получайте бонусы', desc: 'Следите за сезоном, получайте фото, видео, сертификат и мёд' },
+              { icon: '🐝', title: 'Выберите семью', desc: 'В каталоге — реальные семьи с пасеки в Минской области. У каждой свой характер, история и фото.' },
+              { icon: '📋', title: 'Оформите опеку', desc: 'Выберите тариф (от 79 BYN), оплатите — и семья закрепляется за вами на весь сезон.' },
+              { icon: '📱', title: 'Наблюдайте и получайте бонусы', desc: 'Личный кабинет, фото, видео, сезонный прогресс, сертификат и мёд от вашей семьи.' },
             ].map((step, i) => (
               <div key={i} className="text-center p-8 bg-card rounded-lg shadow-soft border border-border">
                 <div className="text-5xl mb-4">{step.icon}</div>
@@ -80,12 +65,12 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: <Heart className="w-6 h-6" />, title: 'Живой формат', desc: 'Это не просто покупка — это причастность к реальной пчелиной семье' },
-              { icon: <Eye className="w-6 h-6" />, title: 'Наблюдение за сезоном', desc: 'Фото, видео, обновления — вы видите, как живёт ваша семья' },
-              { icon: <Gift className="w-6 h-6" />, title: 'Идеальный подарок', desc: 'Подарите не вещь, а живую историю с эмоцией и смыслом' },
-              { icon: <Shield className="w-6 h-6" />, title: 'Красиво упаковано', desc: 'Цифровой кабинет, сертификат, прогресс — всё продумано до мелочей' },
-              { icon: <Leaf className="w-6 h-6" />, title: 'Экологично', desc: 'Вы поддерживаете реальную пасеку и помогаете пчёлам' },
-              { icon: <Star className="w-6 h-6" />, title: 'Ограничено', desc: 'Количество семей ограничено — каждый сезон уникален' },
+              { icon: <Heart className="w-6 h-6" />, title: 'Это не покупка — это опыт', desc: 'Вы не просто платите деньги. Вы получаете свою семью, наблюдаете за ней весь сезон и чувствуете причастность к живому процессу.' },
+              { icon: <Eye className="w-6 h-6" />, title: 'Всё прозрачно', desc: 'Личный кабинет с фото, видео и обновлениями. Вы видите, что происходит с вашими пчёлами — каждые 1–2 недели.' },
+              { icon: <Gift className="w-6 h-6" />, title: 'Идеальный подарок', desc: 'Подарите не вещь, а живую историю. Красивый сертификат, поздравление и уникальный сезон наблюдений.' },
+              { icon: <Shield className="w-6 h-6" />, title: 'Продумано до мелочей', desc: 'Цифровой кабинет, сертификат, прогресс-бар сезона, уведомления — всё работает без лишних усилий с вашей стороны.' },
+              { icon: <Leaf className="w-6 h-6" />, title: 'Реальная польза', desc: 'Вы поддерживаете семейную пасеку и помогаете пчёлам. Это не маркетинг — это реальная экологическая инициатива.' },
+              { icon: <Star className="w-6 h-6" />, title: 'Мест мало', desc: 'В сезоне участвует ограниченное число семей. Когда все заняты — новых не будет до следующего года.' },
             ].map((item, i) => (
               <div key={i} className="flex gap-4 p-6 rounded-lg hover:bg-card hover:shadow-soft transition-all border border-transparent hover:border-border">
                 <div className="w-12 h-12 rounded-lg bg-honey-light flex items-center justify-center text-honey-dark shrink-0">
@@ -126,25 +111,29 @@ export default function HomePage() {
       {/* What you get */}
       <section className="py-20">
         <div className="container">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-center mb-4">
             Что получает опекун
           </h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
+            Всё это входит в стоимость. Никаких скрытых платежей.
+          </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {[
-              { emoji: '📱', label: 'Личный кабинет' },
-              { emoji: '📸', label: 'Фото и видео' },
-              { emoji: '📊', label: 'Прогресс сезона' },
-              { emoji: '📜', label: 'Цифровой сертификат' },
-              { emoji: '🍯', label: 'Мёд от семьи*' },
-              { emoji: '🎁', label: 'Бонусы и сувениры*' },
+              { emoji: '📱', label: 'Личный кабинет', sub: 'Сразу после оплаты' },
+              { emoji: '📸', label: 'Фото и видео', sub: 'Каждые 1–2 недели' },
+              { emoji: '📊', label: 'Прогресс сезона', sub: 'В реальном времени' },
+              { emoji: '📜', label: 'Цифровой сертификат', sub: 'Именной, с печатью' },
+              { emoji: '🍯', label: 'Мёд от вашей семьи*', sub: '0.5 л с доставкой' },
+              { emoji: '🎁', label: 'Бонусы и сувениры*', sub: 'По итогам сезона' },
             ].map((item, i) => (
               <div key={i} className="text-center p-6 bg-card rounded-lg border border-border shadow-soft">
                 <div className="text-3xl mb-2">{item.emoji}</div>
-                <span className="text-sm font-medium">{item.label}</span>
+                <span className="text-sm font-medium block">{item.label}</span>
+                <span className="text-xs text-muted-foreground">{item.sub}</span>
               </div>
             ))}
           </div>
-          <p className="text-center text-xs text-muted-foreground mt-4">* В зависимости от выбранного тарифа</p>
+          <p className="text-center text-xs text-muted-foreground mt-4">* В расширенном и подарочном тарифах</p>
         </div>
       </section>
 
@@ -159,7 +148,7 @@ export default function HomePage() {
                 Подарите не вещь,<br />а живую историю
               </h2>
               <p className="text-primary-foreground/80 mb-6">
-                BeeBro — это подарок с эмоцией. Оформите опеку на имя близкого, добавьте поздравление и подарите уникальный опыт.
+                BeeBro — это подарок с эмоцией. Оформите опеку на имя близкого, добавьте поздравление и подарите уникальный сезон наблюдений за настоящими пчёлами.
               </p>
               <Button size="lg" onClick={() => navigate('/gift')}>
                 🎁 Подарить BeeBro
@@ -169,19 +158,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Trust */}
+      {/* Trust — objection-handling */}
       <section className="py-20">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
-                Реальная пасека.<br />Реальные пчёлы.
+                Это реально.<br />Пасека. Пчёлы. Мёд.
               </h2>
-              <p className="text-muted-foreground mb-6">
-                BeeBro — это не абстракция. За проектом стоит семейная пасека в Минской области с многолетним опытом. Каждая семья реальная, каждый улей — настоящий. Мы просто дали вам возможность быть ближе к этому процессу.
+              <p className="text-muted-foreground mb-4">
+                За BeeBro стоит семейная пасека Козловских в Минской области. Пасеке 8 лет, 40+ ульев, карпатская и среднерусская породы. Мы не перекупаем мёд — мы выращиваем пчёл и ухаживаем за ними сами.
               </p>
+              <p className="text-muted-foreground mb-6">
+                Каждая семья, которую вы видите в каталоге — реальна. Фото и видео снимаются на пасеке, обновления публикуются пасечником лично. Мы даём вам доступ к процессу, который обычно скрыт.
+              </p>
+              <div className="space-y-3 mb-6">
+                {[
+                  { q: '«А вдруг это обман?»', a: 'Мы показываем реальные фото пасеки, координаты и контакты. Приезжайте — покажем вашу семью лично.' },
+                  { q: '«Что я реально получу?»', a: 'Личный кабинет, фото/видео обновления каждые 1–2 недели, именной сертификат, и мёд в расширенном тарифе.' },
+                  { q: '«Почему так дорого / дёшево?»', a: 'Цена покрывает обслуживание семьи, контент, кабинет и логистику. Это не покупка мёда — это сезонный опыт.' },
+                ].map((item, i) => (
+                  <div key={i} className="bg-card rounded-lg border border-border p-4">
+                    <div className="text-sm font-semibold text-foreground mb-1">{item.q}</div>
+                    <div className="text-sm text-muted-foreground">{item.a}</div>
+                  </div>
+                ))}
+              </div>
               <div className="flex flex-wrap gap-3">
-                {['🌿 Натурально', '🗓 Сезонно', '🔒 Ограничено', '📱 Онлайн-доступ'].map(badge => (
+                {['🌿 Натурально', '🗓 Сезон 2025', '🔒 Осталось 4 места', '📱 Онлайн-кабинет', '💸 Возврат 14 дней'].map(badge => (
                   <span key={badge} className="px-4 py-2 bg-honey-light text-honey-dark rounded-full text-sm font-medium">
                     {badge}
                   </span>
@@ -189,7 +193,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-elevated">
-              <img src={apiaryTrust} alt="Наша пасека" className="w-full h-80 object-cover" loading="lazy" width={1200} height={600} />
+              <img src={apiaryTrust} alt="Пасека BeeBro в Минской области" className="w-full h-80 object-cover" loading="lazy" width={1200} height={600} />
             </div>
           </div>
         </div>
@@ -203,11 +207,11 @@ export default function HomePage() {
           </h2>
           <Accordion type="single" collapsible className="space-y-3">
             {[
-              { q: 'Это покупка мёда?', a: 'Нет. BeeBro — это опека над пчелиной семьёй. Вы наблюдаете за жизнью улья, получаете обновления и бонусы. Мёд может быть частью расширенного тарифа, но это не главное.' },
-              { q: 'Можно ли наблюдать онлайн?', a: 'Да! В личном кабинете вы получаете фото, видео, обновления и сезонный прогресс. В расширенном тарифе доступна онлайн-трансляция с пасеки.' },
-              { q: 'Что я получу после оплаты?', a: 'Доступ в личный кабинет, цифровой сертификат опекуна, регулярные обновления. В расширенном тарифе — видео, трансляция и баночка мёда.' },
-              { q: 'Можно ли подарить?', a: 'Конечно! У нас есть специальный подарочный формат с красивым сертификатом, персональным поздравлением и возможностью отложенной активации.' },
-              { q: 'Что если все семьи заняты?', a: 'Количество семей ограничено сезоном. Если все заняты, вы можете оставить заявку и мы уведомим вас первым, когда откроется новый сезон.' },
+              { q: 'Это покупка мёда?', a: 'Нет. BeeBro — это опека над реальной пчелиной семьёй на пасеке. Вы наблюдаете за ней весь сезон, получаете обновления и бонусы. Мёд — часть расширенного тарифа, но главное — это живой цифровой опыт.' },
+              { q: 'Что именно я получу после оплаты?', a: 'Мгновенный доступ в личный кабинет, именной сертификат опекуна, первое обновление по вашей семье. Далее — фото, видео и обновления каждые 1–2 недели в течение сезона.' },
+              { q: 'А это реальные пчёлы?', a: 'Да. Пасека находится в Минской области. 40+ ульев, 8 лет опыта. Вы можете приехать и увидеть свою семью лично — мы это приветствуем.' },
+              { q: 'Можно ли подарить?', a: 'Конечно! У нас есть подарочный формат с красивым сертификатом, персональным поздравлением и возможностью отложенной активации.' },
+              { q: 'Что если все семьи заняты?', a: 'Количество семей ограничено сезоном. Если все заняты, оставьте заявку — мы уведомим вас первым, когда откроется новый сезон.' },
             ].map((faq, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="bg-card border border-border rounded-lg px-6">
                 <AccordionTrigger className="text-left font-medium">{faq.q}</AccordionTrigger>
@@ -230,7 +234,7 @@ export default function HomePage() {
             Выберите свою<br /><span className="text-gradient-honey">пчелиную семью</span>
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-            Количество семей ограничено. Начните свой уникальный сезон вместе с BeeBro уже сегодня.
+            В этом сезоне доступно всего 6 семей. Начните свой уникальный опыт вместе с BeeBro.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={() => navigate('/catalog')} className="px-8">
