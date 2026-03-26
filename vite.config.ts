@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/beebro-your-hive-guardian/",
+  base: "/",
   server: {
     host: "::",
     port: 8080,
