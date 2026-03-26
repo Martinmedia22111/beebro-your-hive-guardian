@@ -124,7 +124,12 @@ export default function DashboardPage() {
                   <div className="font-semibold">Цифровой сертификат</div>
                   <p className="text-sm text-muted-foreground">Ваш именной сертификат опекуна</p>
                 </div>
-                <Button variant="outline" size="sm">Скачать</Button>
+                 <Button variant="outline" size="sm" onClick={() => {
+                    const cert = document.createElement('a');
+                    cert.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Сертификат BeeBro</title><style>body{font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fdf8f0;margin:0}div{text-align:center;border:3px solid #d4a843;padding:60px;max-width:500px;border-radius:16px;background:white}.title{font-size:28px;color:#8b6914;margin-bottom:10px}.name{font-size:22px;margin:20px 0;color:#333}.family{font-size:18px;color:#666}.date{font-size:14px;color:#999;margin-top:20px}</style></head><body><div><div class="title">🐝 Сертификат опекуна</div><div class="name">${user.name}</div><div class="family">Семья: ${primaryFamily?.name}</div><div class="family">Тариф: ${primaryPlan?.name}</div><div class="date">Дата: ${primaryOrder?.date}</div></div></body></html>`);
+                    cert.download = `BeeBro-сертификат.html`;
+                    cert.click();
+                  }}>Скачать</Button>
               </div>
               <div className="flex gap-4 p-4 bg-card rounded-lg border border-border">
                 <div className="text-2xl">🍯</div>
