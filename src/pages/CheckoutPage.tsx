@@ -70,7 +70,12 @@ export default function CheckoutPage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button size="lg" onClick={() => navigate('/dashboard')}>Перейти в кабинет</Button>
-            <Button size="lg" variant="outline">📜 Скачать сертификат</Button>
+            <Button size="lg" variant="outline" onClick={() => {
+                      const cert = document.createElement('a');
+                      cert.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Сертификат BeeBro</title><style>body{font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fdf8f0;margin:0}div{text-align:center;border:3px solid #d4a843;padding:60px;max-width:500px;border-radius:16px;background:white}.title{font-size:28px;color:#8b6914;margin-bottom:10px}.name{font-size:22px;margin:20px 0;color:#333}.family{font-size:18px;color:#666}.date{font-size:14px;color:#999;margin-top:20px}</style></head><body><div><div class="title">🐝 Сертификат опекуна</div><div class="name">${name || 'Опекун BeeBro'}</div><div class="family">Семья: ${cartFamily.name}</div><div class="family">Тариф: ${selectedPlan.name}</div><div class="date">Дата: ${new Date().toLocaleDateString('ru-RU')}</div><div class="date">Заказ #${orderId?.slice(-6)}</div></div></body></html>`);
+                      cert.download = `BeeBro-сертификат-${cartFamily.name}.html`;
+                      cert.click();
+                    }}>📜 Скачать сертификат</Button>
           </div>
         </div>
       </div>
