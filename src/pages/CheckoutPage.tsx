@@ -220,7 +220,7 @@ export default function CheckoutPage() {
             <div className="flex justify-between">
               <Button variant="outline" onClick={() => setStep(3)}>Назад</Button>
               <Button size="lg" onClick={handleSubmitOrder}>
-                Оплатить {totalPrice} BYN
+                Оплатить ${totalPrice}
               </Button>
             </div>
           </div>
