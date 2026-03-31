@@ -349,7 +349,7 @@ export default function HomePage() {
                     <span className="font-display text-3xl font-bold text-foreground">$79</span>
                     <span className="text-sm text-muted-foreground ml-1">/ сезон</span>
                   </div>
-                  <Button onClick={() => navigate('/catalog')} className="bg-amber-500 hover:bg-amber-600 border-accent">
+                  <Button onClick={() => navigate('/catalog')} className="bg-amber-500 hover:bg-amber-600 text-white">
                     Выбрать семью <ChevronRight className="w-4 h-4 ml-1" />
                   </Button>
                 </div>
