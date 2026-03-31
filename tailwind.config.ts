@@ -52,7 +52,7 @@ export default {
           light: "hsl(var(--honey-light))",
           dark: "hsl(var(--honey-dark))",
         },
-        amber: "hsl(var(--amber))",
+        "warm-amber": "hsl(var(--amber))",
         cream: "hsl(var(--cream))",
         graphite: {
           DEFAULT: "hsl(var(--graphite))",
