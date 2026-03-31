@@ -38,15 +38,17 @@ export default function HowItWorksPage() {
         </div>
 
         <section className="mb-16 bg-card rounded-2xl border border-border p-8">
-          <h2 className="font-display text-2xl font-bold mb-6">Что получает участник</h2>
+          <h2 className="font-display text-2xl font-bold mb-6">Два формата участия</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              '📱 Личный кабинет с вашей семьёй',
-              '📸 Фото и видео с пасеки',
-              '📊 Сезонный прогресс в реальном времени',
-              '📜 Цифровой сертификат опекуна',
-              '🍯 Мёд от вашей семьи (расш. тариф)',
-              '🎁 Бонусы и подарочный формат',
+              '🐝 «Доля улья» — $79 за сезон',
+              '👥 Совместная опека с другими',
+              '📹 Доступ к онлайн-трансляциям',
+              '🍯 Мёд от вашей семьи',
+              '🏠 «Целый улей» — $349 за сезон',
+              '👤 Вы — единственный владелец',
+              '📜 Сертификат владельца',
+              '🍯 Весь мёд от вашего улья',
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-3 bg-honey-light/50 rounded-lg">
                 <span className="text-lg">{item.split(' ')[0]}</span>

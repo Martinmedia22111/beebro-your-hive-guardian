@@ -126,7 +126,7 @@ export default function CheckoutPage() {
               <div>
                 <h3 className="font-display text-lg font-semibold">{cartFamily.name}</h3>
                 <p className="text-sm text-muted-foreground">{cartFamily.description}</p>
-                <p className="font-bold mt-2">от {cartFamily.price} BYN</p>
+                <p className="font-bold mt-2">от ${cartFamily.price}</p>
               </div>
             </div>
             <Button variant="outline" size="sm" onClick={() => navigate('/catalog')} className="mb-6">Изменить семью</Button>
@@ -153,7 +153,7 @@ export default function CheckoutPage() {
                 >
                   {plan.popular && <Badge className="absolute -top-2 right-4 bg-primary text-primary-foreground">Популярный</Badge>}
                   <h3 className="font-display font-bold text-lg mb-1">{plan.name}</h3>
-                  <p className="text-xl font-bold mb-4">{plan.price > 0 ? `+${plan.price} BYN` : 'Включено'}</p>
+                  <p className="text-xl font-bold mb-4">{plan.price > 0 ? `+$${plan.price}` : 'Включено'}</p>
                   <ul className="space-y-2">
                     {plan.features.map((f, i) => (
                       <li key={i} className="text-sm flex gap-2"><Check className="w-4 h-4 text-primary shrink-0 mt-0.5" /> {f}</li>
@@ -211,16 +211,16 @@ export default function CheckoutPage() {
             <div className="bg-card rounded-xl border border-border p-6 mb-6">
               <div className="flex justify-between mb-2"><span className="text-muted-foreground">Семья</span><span className="font-semibold">{cartFamily.name}</span></div>
               <div className="flex justify-between mb-2"><span className="text-muted-foreground">Тариф</span><span className="font-semibold">{selectedPlan.name}</span></div>
-              <div className="flex justify-between mb-2"><span className="text-muted-foreground">Базовая стоимость</span><span>{cartFamily.price} BYN</span></div>
-              {selectedPlan.price > 0 && <div className="flex justify-between mb-2"><span className="text-muted-foreground">Доплата за тариф</span><span>+{selectedPlan.price} BYN</span></div>}
+              <div className="flex justify-between mb-2"><span className="text-muted-foreground">Базовая стоимость</span><span>${cartFamily.price}</span></div>
+              {selectedPlan.price > 0 && <div className="flex justify-between mb-2"><span className="text-muted-foreground">Доплата за тариф</span><span>+${selectedPlan.price}</span></div>}
               <hr className="border-border my-3" />
-              <div className="flex justify-between text-lg font-bold"><span>Итого</span><span>{totalPrice} BYN</span></div>
+              <div className="flex justify-between text-lg font-bold"><span>Итого</span><span>${totalPrice}</span></div>
             </div>
             <p className="text-sm text-muted-foreground mb-6">Нажимая кнопку, вы подтверждаете оформление демо-заказа.</p>
             <div className="flex justify-between">
               <Button variant="outline" onClick={() => setStep(3)}>Назад</Button>
               <Button size="lg" onClick={handleSubmitOrder}>
-                Оплатить {totalPrice} BYN
+                Оплатить ${totalPrice}
               </Button>
             </div>
           </div>

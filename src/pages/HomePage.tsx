@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useApp } from '@/context/AppContext';
+
 import {
   Accordion,
   AccordionContent,
@@ -17,8 +17,6 @@ import family2 from '@/assets/family-2.jpg';
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { families } = useApp();
-  const featured = families.filter(f => f.status === 'available').slice(0, 3);
 
   return (
     <div className="min-h-screen">
@@ -411,92 +409,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════
-          ТАРИФЫ — Два тарифа, продающее оформление
-      ═══════════════════════════════════════════════════ */}
-      <section className="py-24 bg-cream-gradient">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Два способа начать
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Никаких скрытых платежей. Одна цена — весь сезон.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Доля улья */}
-            <div className="bg-card rounded-2xl border border-border p-8 shadow-soft flex flex-col">
-              <div className="mb-6">
-                <h3 className="font-display text-2xl font-bold mb-1">Доля улья</h3>
-                <p className="text-sm text-muted-foreground">Станьте совладельцем пчелиной семьи</p>
-              </div>
-              <div className="mb-6">
-                <span className="font-display text-5xl font-bold text-foreground">$79</span>
-                <span className="text-muted-foreground ml-2">/ сезон</span>
-              </div>
-              <ul className="space-y-3 mb-8 flex-1">
-                {[
-                  'Участие в жизни улья',
-                  'Доступ к онлайн-камерам',
-                  'Новости и обновления пасеки',
-                  'Мёд, произведённый вашей семьёй',
-                  'Сертификат опекуна',
-                ].map((f, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm">
-                    <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button size="lg" variant="outline" onClick={() => navigate('/catalog')} className="w-full">
-                Выбрать семью
-              </Button>
-            </div>
-
-            {/* Целый улей */}
-            <div className="relative bg-card rounded-2xl border-2 border-primary p-8 shadow-elevated flex flex-col">
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                <span className="px-4 py-1.5 bg-primary text-primary-foreground text-xs font-bold rounded-full uppercase tracking-wider">
-                  Самый популярный
-                </span>
-              </div>
-              <div className="mb-6">
-                <h3 className="font-display text-2xl font-bold mb-1">Целый улей</h3>
-                <p className="text-sm text-muted-foreground">Ваш собственный улей на весь сезон</p>
-              </div>
-              <div className="mb-6">
-                <span className="font-display text-5xl font-bold text-foreground">$349</span>
-                <span className="text-muted-foreground ml-2">/ сезон</span>
-              </div>
-              <ul className="space-y-3 mb-8 flex-1">
-                {[
-                  'Целый улей — только ваш',
-                  'Весь мёд, произведённый семьёй',
-                  'Доступ к онлайн-камерам',
-                  'Участие в жизни пасеки',
-                  'Сертификат владельца улья',
-                  'Приоритетная поддержка',
-                ].map((f, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm">
-                    <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button size="lg" onClick={() => navigate('/catalog')} className="w-full">
-                Выбрать улей <ChevronRight className="w-5 h-5 ml-1" />
-              </Button>
-            </div>
-          </div>
-
-          <p className="text-center text-xs text-muted-foreground mt-6 max-w-lg mx-auto">
-            Мы не обещаем конкретное количество мёда — урожай зависит от природы.
-            Вы получите мёд, произведённый вашей пчелиной семьёй.
-          </p>
-        </div>
-      </section>
 
       {/* ═══════════════════════════════════════════════════
           ПОДАРОК — Gift section
