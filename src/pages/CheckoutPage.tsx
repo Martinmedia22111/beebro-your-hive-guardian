@@ -126,7 +126,7 @@ export default function CheckoutPage() {
               <div>
                 <h3 className="font-display text-lg font-semibold">{cartFamily.name}</h3>
                 <p className="text-sm text-muted-foreground">{cartFamily.description}</p>
-                <p className="font-bold mt-2">от {cartFamily.price} BYN</p>
+                <p className="font-bold mt-2">от ${cartFamily.price}</p>
               </div>
             </div>
             <Button variant="outline" size="sm" onClick={() => navigate('/catalog')} className="mb-6">Изменить семью</Button>
