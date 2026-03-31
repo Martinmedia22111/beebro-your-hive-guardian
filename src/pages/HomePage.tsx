@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useApp } from '@/context/AppContext';
-import FamilyCard from '@/components/FamilyCard';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { ChevronRight, Play, Eye, Flower2, Sun, TreePine, Check, Video, Camera, Bell, Users } from 'lucide-react';
+import { ChevronRight, Play, Eye, Flower2, Sun, TreePine, Check, Video, Camera, Bell, Users, Crown } from 'lucide-react';
 import heroBg from '@/assets/hero-bg.jpg';
 import apiaryTrust from '@/assets/apiary-trust.jpg';
 import giftBox from '@/assets/gift-box.jpg';
@@ -305,24 +305,107 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════
-          ДОСТУПНЫЕ СЕМЬИ — Демонстрация продукта
+          ВЫБЕРИТЕ ФОРМАТ — Два тарифа превью
       ═══════════════════════════════════════════════════ */}
       <section className="py-24">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Выберите свою семью
+              Выберите свой формат участия
             </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Каждая семья — реальная. С характером, историей и фотографиями с пасеки.
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Два способа стать частью пасеки — разделите опеку с другими или закрепите за собой целый улей
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {featured.map(f => <FamilyCard key={f.id} family={f} />)}
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-10">
+            {/* Доля улья */}
+            <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-300 flex flex-col">
+              <div className="p-8 flex flex-col flex-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center">
+                    <Users className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl font-bold">Доля улья</h3>
+                    <p className="text-xs text-muted-foreground">Совместная опека</p>
+                  </div>
+                  <Badge className="ml-auto bg-amber-500 text-white border-0">от 5 мест</Badge>
+                </div>
+
+                <p className="text-sm text-muted-foreground mb-6">
+                  Станьте совладельцем пчелиной семьи вместе с другими участниками. Наблюдайте, участвуйте и получите мёд.
+                </p>
+
+                <ul className="space-y-2.5 mb-6 flex-1">
+                  {['Опека над пчелиной семьёй', 'Доступ к онлайн-трансляциям', 'Мёд от вашей семьи', 'Сертификат опекуна'].map((f, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm">
+                      <Check className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex items-end justify-between mt-auto">
+                  <div>
+                    <span className="font-display text-3xl font-bold text-foreground">$79</span>
+                    <span className="text-sm text-muted-foreground ml-1">/ сезон</span>
+                  </div>
+                  <Button onClick={() => navigate('/catalog')} className="bg-amber-500 hover:bg-amber-600">
+                    Выбрать семью <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Целый улей */}
+            <div className="relative bg-card rounded-2xl border-2 border-emerald-500 overflow-hidden shadow-elevated flex flex-col">
+              <div className="absolute -top-0 left-0 right-0">
+                <div className="bg-emerald-600 text-white text-xs font-bold text-center py-1.5 tracking-wider uppercase">
+                  Самый популярный
+                </div>
+              </div>
+              <div className="p-8 pt-12 flex flex-col flex-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                    <Crown className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl font-bold">Целый улей</h3>
+                    <p className="text-xs text-muted-foreground">Полное владение</p>
+                  </div>
+                  <Badge className="ml-auto bg-emerald-600 text-white border-0">1 место</Badge>
+                </div>
+
+                <p className="text-sm text-muted-foreground mb-6">
+                  Закрепите за собой целый улей. Вы — единственный владелец. Весь мёд — ваш.
+                </p>
+
+                <ul className="space-y-2.5 mb-6 flex-1">
+                  {['Весь улей закреплён за вами', 'Доступ к онлайн-наблюдению', 'Весь мёд от вашего улья', 'Сертификат владельца'].map((f, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm">
+                      <Check className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex items-end justify-between mt-auto">
+                  <div>
+                    <span className="font-display text-3xl font-bold text-foreground">$349</span>
+                    <span className="text-sm text-muted-foreground ml-1">/ сезон</span>
+                  </div>
+                  <Button onClick={() => navigate('/catalog')} className="bg-emerald-600 hover:bg-emerald-700">
+                    Выбрать улей <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="text-center mt-10">
+
+          <div className="text-center">
             <Button variant="outline" size="lg" onClick={() => navigate('/catalog')} className="px-8">
-              Все семьи в каталоге <ChevronRight className="w-5 h-5 ml-1" />
+              Смотреть каталог <ChevronRight className="w-5 h-5 ml-1" />
             </Button>
           </div>
         </div>
