@@ -54,7 +54,7 @@ export default function FamilyDetailPage() {
             <Badge className="w-fit mb-3">{statusLabels[family.status]}</Badge>
             <h1 className="font-display text-3xl md:text-4xl font-bold mb-3">{family.name}</h1>
             <p className="text-muted-foreground mb-4">{family.description}</p>
-            <p className="font-display text-3xl font-bold text-foreground mb-6">от {family.price} BYN</p>
+            <p className="font-display text-3xl font-bold text-foreground mb-6">от ${family.price}</p>
             
             <div className="flex flex-wrap gap-3 mb-6">
               {family.features.map((f, i) => (

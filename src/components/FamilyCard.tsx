@@ -57,7 +57,7 @@ export default function FamilyCard({ family }: { family: BeeFamily }) {
 
         <div className="flex items-center justify-between">
           <span className="font-display text-xl font-bold text-foreground">
-            {family.price} BYN
+            ${family.price}
           </span>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={() => navigate(`/family/${family.id}`)}>
