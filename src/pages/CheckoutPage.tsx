@@ -211,10 +211,10 @@ export default function CheckoutPage() {
             <div className="bg-card rounded-xl border border-border p-6 mb-6">
               <div className="flex justify-between mb-2"><span className="text-muted-foreground">Семья</span><span className="font-semibold">{cartFamily.name}</span></div>
               <div className="flex justify-between mb-2"><span className="text-muted-foreground">Тариф</span><span className="font-semibold">{selectedPlan.name}</span></div>
-              <div className="flex justify-between mb-2"><span className="text-muted-foreground">Базовая стоимость</span><span>{cartFamily.price} BYN</span></div>
-              {selectedPlan.price > 0 && <div className="flex justify-between mb-2"><span className="text-muted-foreground">Доплата за тариф</span><span>+{selectedPlan.price} BYN</span></div>}
+              <div className="flex justify-between mb-2"><span className="text-muted-foreground">Базовая стоимость</span><span>${cartFamily.price}</span></div>
+              {selectedPlan.price > 0 && <div className="flex justify-between mb-2"><span className="text-muted-foreground">Доплата за тариф</span><span>+${selectedPlan.price}</span></div>}
               <hr className="border-border my-3" />
-              <div className="flex justify-between text-lg font-bold"><span>Итого</span><span>{totalPrice} BYN</span></div>
+              <div className="flex justify-between text-lg font-bold"><span>Итого</span><span>${totalPrice}</span></div>
             </div>
             <p className="text-sm text-muted-foreground mb-6">Нажимая кнопку, вы подтверждаете оформление демо-заказа.</p>
             <div className="flex justify-between">
