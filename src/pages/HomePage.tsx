@@ -8,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { ChevronRight, Play, Eye, Flower2, Sun, TreePine, Check, Video, Camera, Bell, Users } from 'lucide-react';
+import { ChevronRight, Play, Eye, Flower2, Sun, TreePine, Check, Video, Camera, Bell, Users, Crown } from 'lucide-react';
 import heroBg from '@/assets/hero-bg.jpg';
 import apiaryTrust from '@/assets/apiary-trust.jpg';
 import giftBox from '@/assets/gift-box.jpg';
