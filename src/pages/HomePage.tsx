@@ -17,8 +17,6 @@ import family2 from '@/assets/family-2.jpg';
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { families } = useApp();
-  const featured = families.filter(f => f.status === 'available').slice(0, 3);
 
   return (
     <div className="min-h-screen">
