@@ -88,8 +88,8 @@ function OfferCardComponent({ offer, price, tierLabel, tierIcon: TierIcon, accen
             <span className="font-display text-2xl font-bold text-foreground">{price}$</span>
             <span className="text-sm text-muted-foreground ml-1">/ сезон</span>
           </div>
-          <Button size="sm" onClick={() => navigate('/checkout')}>
-            Выбрать
+          <Button size="sm" asChild>
+            <a href="https://t.me/BeeBro2026_bot" target="_blank" rel="noopener noreferrer">Опекать</a>
           </Button>
         </div>
       </div>
