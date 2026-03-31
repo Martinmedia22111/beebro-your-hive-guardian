@@ -153,7 +153,7 @@ export default function CheckoutPage() {
                 >
                   {plan.popular && <Badge className="absolute -top-2 right-4 bg-primary text-primary-foreground">Популярный</Badge>}
                   <h3 className="font-display font-bold text-lg mb-1">{plan.name}</h3>
-                  <p className="text-xl font-bold mb-4">{plan.price > 0 ? `+${plan.price} BYN` : 'Включено'}</p>
+                  <p className="text-xl font-bold mb-4">{plan.price > 0 ? `+$${plan.price}` : 'Включено'}</p>
                   <ul className="space-y-2">
                     {plan.features.map((f, i) => (
                       <li key={i} className="text-sm flex gap-2"><Check className="w-4 h-4 text-primary shrink-0 mt-0.5" /> {f}</li>
